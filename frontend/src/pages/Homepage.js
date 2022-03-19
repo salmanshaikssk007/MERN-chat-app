@@ -1,7 +1,6 @@
 import { Container , Box, Text , Tab ,Tabs ,TabList , TabPanels ,TabPanel} from '@chakra-ui/react';
 import Login from './../components/Login';
 import Signup from './../components/Signup';
-import './Homepage.css'
 
 
 const Homepage = () => {

@@ -29,7 +29,8 @@ const Login = () => {
         isClosable: true,
         position : "bottom"
       })
-      
+      setLoading(false);
+      return ;
     }
    
 

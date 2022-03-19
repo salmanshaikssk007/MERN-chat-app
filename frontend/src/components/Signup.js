@@ -80,7 +80,7 @@ const Signup = () => {
           isClosable: true,
           position : "bottom"
         })
-        
+        return ;
       }
       if(password !== confirmpassword){
 
@@ -91,7 +91,7 @@ const Signup = () => {
           isClosable: true,
           position : "bottom"
         })
-       
+       return ;
       }
 
       try {
