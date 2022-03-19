@@ -1,8 +1,11 @@
 import { Button } from "@chakra-ui/button";
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
-import { VStack } from "@chakra-ui/layout";
+import { VStack  } from "@chakra-ui/layout";
+import { useToast } from "@chakra-ui/react";
 import { useState } from "react";
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [show, setShow] = useState(false);
@@ -10,10 +13,60 @@ const Login = () => {
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [ loading , setLoading ] = useState(false);
  
+  const navigate  = useNavigate();
+  const toast = useToast();
 
   const submitHandler = async () => {
-    
+    setLoading(true);
+    if( !email || !password){
+
+      toast({
+        title: 'Check all the fields',
+        status: 'warning',
+        duration: 3000,
+        isClosable: true,
+        position : "bottom"
+      })
+      
+    }
+   
+
+    try {
+
+      const config = {
+        headers : {
+          "Content-type" : "application/json"
+        }
+      }
+
+      const {data} = await axios.post( "/api/user/login" , {  email ,password},config); 
+
+      toast({
+        title: `Login is sussesful` ,
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+        position : "bottom"
+      })
+
+      localStorage.setItem('userInfo' , JSON.stringify(data))
+      setLoading(false);
+      // to navigate to chats
+      navigate("/chats")
+
+    } catch (error) {
+      toast({
+        title: `Registration failed` ,
+        description : error.response.data.message ,
+        status: 'warning',
+        duration: 3000,
+        isClosable: true,
+        position : "bottom"
+      })
+      setLoading(false);
+    }
     } 
       
   return (
@@ -48,6 +101,7 @@ const Login = () => {
         width="100%"
         style={{ marginTop: 15 }}
         onClick={submitHandler}
+        isLoading = {loading}
       >
         Login
       </Button>
