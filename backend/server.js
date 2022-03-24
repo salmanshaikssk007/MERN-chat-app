@@ -1,5 +1,4 @@
 const express = require("express");
-const { chats } = require("./data/data");
 const dotenv = require('dotenv');
 const fs = require('fs');
 const connectDB = require("./config/db");

@@ -6,6 +6,8 @@ const User = require("../models/userModel");
 //@route           POST /api/chat/
 //@access          Protected
 const accessChat = asyncHandler(async (req, res) => {
+    
+    // console.log(req);
   const { userId : reciverId } = req.body ;
   const {_id : senderId} = req.user ;
 
