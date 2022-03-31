@@ -21,7 +21,7 @@ const userModalScheme =  mongoose.Schema(
     }
 )
 // designing custom method to matchpassword
-userModalScheme.methods.matchPasswords = async function (enteredPassword){
+userModalScheme.methods.matchPassword = async function (enteredPassword){
     return await bcrypt.compare(enteredPassword , this.password)
 }
 // to encrpt the password

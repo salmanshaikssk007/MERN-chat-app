@@ -60,7 +60,7 @@ const Login = () => {
     } catch (error) {
       toast({
         title: `Registration failed` ,
-        description : error.response.data.message ,
+        description : "Invaild username or password" ,
         status: 'warning',
         duration: 3000,
         isClosable: true,
