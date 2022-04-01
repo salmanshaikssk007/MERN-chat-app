@@ -41,7 +41,7 @@ function SideDrawer() {
        localStorage.removeItem("userInfo");
        navigate("/")
    }
-
+   
    const handleSearch = async () =>{
     if (!search) {
         toast({
@@ -65,6 +65,7 @@ function SideDrawer() {
   
         const { data } = await axios.get(`/api/user?search=${search}`, config);
        
+        console.log(data);
          
         setLoading(false);
         setSearchResult(data);
@@ -155,14 +156,14 @@ function SideDrawer() {
                 <DrawerContent>
 
                 <DrawerCloseButton />
-                <DrawerHeader borderBottom={1} >Create your account</DrawerHeader>
+                <DrawerHeader borderBottom={1} >Search for Users</DrawerHeader>
 
                 <DrawerBody>
                     <Box display='flex' pb={2}>
                             <Input placeholder='Search by name or email' mr={2}
                             value={search}
-                            onChange={(e)=>setSearch(e.target.value)}></Input>
-                            <Button onClick={handleSearch}>Go</Button>
+                            onChange={(e)=>setSearch(e.target.value)}
+                            onKeyUp= {handleSearch}></Input>
                     </Box>
                     {loading ? <ChatLoading /> : (
                         searchResult?.map((user) => (

@@ -5,6 +5,7 @@ const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes")
 const chatRoutes = require("./routes/chatRoutes")
 const { notFound , errorHandler } = require("./middleware/errorMiddleware")
+const messageroutes = require('./routes/messageRoutes')
 
 // defining new express api
 const app = express();
@@ -22,6 +23,7 @@ fs.readdirSync(models_path).forEach(function (file) {
 app.get('/',(req,res)=>res.send('API IS RUNNING'));
 app.use('/api/user' , userRoutes) 
 app.use("/api/chat", chatRoutes);
+app.use("/api/message" , messageroutes)
 // to handle middleware
 app.use(notFound);
 app.use(errorHandler);
