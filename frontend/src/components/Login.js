@@ -11,8 +11,8 @@ const Login = () => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
 
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [ loading , setLoading ] = useState(false);
  
   const navigate  = useNavigate();
@@ -35,40 +35,42 @@ const Login = () => {
    
 
     try {
-
       const config = {
-        headers : {
-          "Content-type" : "application/json"
-        }
-      }
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
 
-      const {data} = await axios.post( "/api/user/login" , {  email ,password},config); 
+      const { data } = await axios.post(
+        "/api/user/login",
+        { email, password },
+        config
+      );
 
       toast({
-        title: `Login is sussesful` ,
-        status: 'success',
-        duration: 3000,
+        title: "Login Successful",
+        status: "success",
+        duration: 5000,
         isClosable: true,
-        position : "bottom"
-      })
-
-      localStorage.setItem('userInfo' , JSON.stringify(data))
+        position: "bottom",
+      });
+      localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
-      // to navigate to chats
-      navigate("/chats")
-
+      if(data){
+       navigate('/chats')
+      }
     } catch (error) {
       toast({
-        title: `Registration failed` ,
-        description : "Invaild username or password" ,
-        status: 'warning',
-        duration: 3000,
+        title: "Error Occured!",
+        description: error.response.data.message,
+        status: "error",
+        duration: 5000,
         isClosable: true,
-        position : "bottom"
-      })
+        position: "bottom",
+      });
       setLoading(false);
     }
-    } 
+  };
       
   return (
     <VStack spacing="10px">

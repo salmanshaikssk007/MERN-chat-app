@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import axios from 'axios';
 import { ChatState } from './../context/chatProviders'
 import { Box } from '@chakra-ui/layout'
 import SideDrawer from '../components/ui_components/SideDrawer';
@@ -9,7 +8,7 @@ import ChatBox from '../components/ui_components/ChatBox';
 const Chatpage = () => {
 
    const { user } = ChatState();
-   const [fetchAgain, setFetchAgain] = useState()
+   const [fetchAgain, setFetchAgain] = useState(false);
    
     return (
         

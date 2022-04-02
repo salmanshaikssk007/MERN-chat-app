@@ -124,18 +124,18 @@ function SideDrawer() {
                 </Tooltip>
                 <Text fontFamily='Work sans' fontSize='2xl'>Chat App </Text>
                 <div>
-                    <Menu>
+                    {/* <Menu>
                         <MenuButton p={1}>
                         <BellIcon fontSize='2xl' margin={1}/>
                         </MenuButton>
                         <MenuList>
-                            {/* <MenuItem>Download</MenuItem>
+                            <MenuItem>Download</MenuItem>
                             <MenuItem>Create a Copy</MenuItem>
                             <MenuItem>Mark as Draft</MenuItem>
                             <MenuItem>Delete</MenuItem>
-                            <MenuItem>Attend a Workshop</MenuItem> */}
+                            <MenuItem>Attend a Workshop</MenuItem>
                          </MenuList>
-                    </Menu>
+                    </Menu> */}
                     <Menu>
                         <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
                             <Avatar size='sm' cursor='pointer' name={user.name} src = {user.pic}/>
