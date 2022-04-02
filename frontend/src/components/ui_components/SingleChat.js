@@ -15,7 +15,7 @@ import  Lottie  from 'react-lottie'
 import animationData from './../../animations/3-dots-loading.json'
 
 
-const ENDPOINT = 'http://localhost:5001' ;
+const ENDPOINT = 'https://mern-chat-app-project.herokuapp.com/' ;
 var socket , selectedChatCompare ;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
