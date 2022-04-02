@@ -12,11 +12,8 @@ dotenv.config();
 connectDB();
 const app = express();
 
-app.use(express.json()); // to accept json data
-
-// app.get("/", (req, res) => {
-//   res.send("API Running!");
-// });
+// to accept json data
+app.use(express.json()); 
 
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
@@ -51,6 +48,7 @@ const server = app.listen(
   console.log(`Server running on PORT ${PORT}...`.yellow.bold)
 );
 
+// ---------------------------socket.io-----------------------------
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
