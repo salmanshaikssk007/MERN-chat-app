@@ -6,6 +6,7 @@ const userRoutes = require("./routes/userRoutes")
 const chatRoutes = require("./routes/chatRoutes")
 const { notFound , errorHandler } = require("./middleware/errorMiddleware")
 const messageroutes = require('./routes/messageRoutes')
+const io = require('socket.io')
 
 // defining new express api
 const app = express();
@@ -29,4 +30,5 @@ app.use(notFound);
 app.use(errorHandler);
 // connecting api to server
 const PORT = process.env.PORT || 5000
-app.listen(PORT, console.log(`starting server in port ${PORT}`))
+const server = app.listen(PORT, console.log(`starting server in port ${PORT}`))
+
