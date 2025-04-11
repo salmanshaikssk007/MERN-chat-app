@@ -19,10 +19,6 @@ A real-time full-stack chat application built using the **MERN stack** (MongoDB,
 - **Database:** MongoDB (Cloud - Atlas)
 - **Deployment:** AWS EC2 (Backend), Netlify or Vercel (Frontend)
 
-## 📸 Screenshots
-
-*(Include screenshots here if available)*
-
 ## 🧑‍💻 Getting Started
 
 ### Prerequisites
