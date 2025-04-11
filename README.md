@@ -35,7 +35,7 @@ A full-stack **real-time chat application** built using the **MERN stack** (Mong
 ---
 
 ## 📁 Project Structure
-
+```bash
 MERN-chat-app/
 ├── backend/
 │   ├── config/         # DB & env config
@@ -52,7 +52,7 @@ MERN-chat-app/
 │   │   ├── pages/      # App screens
 │   │   └── App.js
 │   └── package.json
-
+```
 ---
 
 ## 🔌 API Endpoints
