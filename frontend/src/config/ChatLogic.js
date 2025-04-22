@@ -1,5 +1,10 @@
 export const getSender = (loggedUser, users) => {
-  return users[0]._id === loggedUser._id ? users[1].name : users[0].name;
+  if (!users || users.length < 2 || !loggedUser) return "Unknown";
+
+  const [user1, user2] = users;
+  if (!user1 || !user2) return "Unknown";
+
+  return user1._id === loggedUser._id ? user2.name : user1.name;
 };
 
 export const getSenderFull = (loggedUser, users) => {

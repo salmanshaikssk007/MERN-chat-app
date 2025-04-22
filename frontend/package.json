@@ -15,7 +15,7 @@
     "framer-motion": "^6.2.8",
     "http-proxy-middleware": "^2.0.4",
     "npm": "^2.0.4",
-    "react": "^16.0.0",
+    "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-lottie": "^1.2.3",
     "react-router-dom": "^6.2.2",
