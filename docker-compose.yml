@@ -1,0 +1,40 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile  # Path to your backend Dockerfile
+    ports:
+      - "5001:5001"
+    env_file:
+       - .env
+    volumes:
+      - ./backend:/app  # Mount the backend folder to /app inside the container
+    networks:
+      - mern-network
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile  # Path to your frontend Dockerfile
+    ports:
+      - "3000:80"
+    networks:
+      - mern-network
+    depends_on:
+      - backend
+
+  mongo:
+    image: mongo:latest  # Use the official MongoDB image
+    ports:
+      - "27017:27017"
+    networks:
+      - mern-network
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+networks:
+  mern-network:
+    driver: bridge
