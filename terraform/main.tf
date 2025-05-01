@@ -11,14 +11,14 @@ terraform {
   }
 }
 module "vpc" {
-  source = "./vpc"
+  source = "./modules/vpc"
 
 }
 module "eks" {
-  source     = "./eks"
+  source     = "./modules/eks"
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.subnet_ids
 }
 module "s3" {
-  source = "./s3"
+  source = "./modules/s3"
 }

@@ -1,0 +1,74 @@
+# name: CI/CD Pipeline
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# env:
+#   AWS_REGION: us-east-1
+#   ECR_REPOSITORY_BACKEND: chattime-backend
+#   ECR_REPOSITORY_FRONTEND: chattime-frontend
+#   CLUSTER_NAME: chattime-cluster
+#   EKS_NAMESPACE: default
+
+# jobs:
+#   build-and-deploy:
+#     runs-on: ubuntu-latest
+
+#     permissions:
+#       id-token: write
+#       contents: read
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
+
+#       - name: Configure AWS credentials
+#         uses: aws-actions/configure-aws-credentials@v2
+#         with:
+#           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+#           aws-region: ${{ env.AWS_REGION }}
+
+#       - name: Login to Amazon ECR
+#         id: login-ecr
+#         uses: aws-actions/amazon-ecr-login@v1
+
+#       # --- Backend ---
+#       - name: Build and push backend Docker image
+#         run: |
+#           docker build -t $ECR_REPOSITORY_BACKEND ./backend
+#           docker tag $ECR_REPOSITORY_BACKEND:latest ${{ steps.login-ecr.outputs.registry }}/${ECR_REPOSITORY_BACKEND}:latest
+#           docker push ${{ steps.login-ecr.outputs.registry }}/${ECR_REPOSITORY_BACKEND}:latest
+
+#       # --- Frontend ---
+#       - name: Build and push frontend Docker image
+#         run: |
+#           docker build -t $ECR_REPOSITORY_FRONTEND ./frontend
+#           docker tag $ECR_REPOSITORY_FRONTEND:latest ${{ steps.login-ecr.outputs.registry }}/${ECR_REPOSITORY_FRONTEND}:latest
+#           docker push ${{ steps.login-ecr.outputs.registry }}/${ECR_REPOSITORY_FRONTEND}:latest
+
+#       # --- Set up Kubeconfig for EKS ---
+#       - name: Set up kubeconfig
+#         run: |
+#           aws eks update-kubeconfig --region $AWS_REGION --name $CLUSTER_NAME
+
+#       # --- Deploy with Helm ---
+#       - name: Deploy backend with Helm
+#         run: |
+#           helm upgrade --install backend ./k8/helm/backend \
+#             --set image.repository=${{ steps.login-ecr.outputs.registry }}/${ECR_REPOSITORY_BACKEND} \
+#             --set image.tag=latest \
+#             --namespace $EKS_NAMESPACE
+
+#       - name: Deploy frontend with Helm
+#         run: |
+#           helm upgrade --install frontend ./k8/helm/frontend \
+#             --set image.repository=${{ steps.login-ecr.outputs.registry }}/${ECR_REPOSITORY_FRONTEND} \
+#             --set image.tag=latest \
+#             --namespace $EKS_NAMESPACE
+
+#       - name: Deploy ingress with Helm
+#         run: |
+#           helm upgrade --install ingress ./k8/helm/ingress \
+#             --namespace $EKS_NAMESPACE

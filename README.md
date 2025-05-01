@@ -1,85 +1,86 @@
 # 💬 MERN Chat App
 
-A full-stack **real-time chat application** built using the **MERN stack** (MongoDB, Express.js, React, Node.js) with **Socket.io** for instant messaging. This app supports user authentication, individual and group chats, typing indicators, and real-time message delivery.
+A scalable, real-time **chat application** built using the **MERN stack** (MongoDB, Express.js, React, Node.js) and **Socket.IO**. This app supports user authentication, one-to-one and group chats, typing indicators, and real-time messaging with online status.
 
 ---
 
 ## 🚀 Features
 
-- 🔐 JWT-based Authentication (Login/Sign Up)
-- 👥 One-to-One and Group Chat Support
-- 💬 Real-time Messaging via Socket.IO
-- ✍️ Typing Indicators
-- 🟢 Online/Offline Status
-- 🧭 User Search and Chat Initiation
-- 🎨 Responsive UI
+- 🔐 JWT Authentication (Login & Signup)
+- 👤 One-to-One and 👥 Group Chat
+- 💬 Real-time Messaging via **Socket.IO**
+- ✍️ Typing Indicators & Message Seen Status
+- 🟢 Online/Offline User Presence
+- 🔍 User Search & Chat Creation
+- 🎨 Responsive Design (Tailwind/Chakra UI)
 
 ---
 
-## 🛠 Tech Stack
+## 🛠️ Tech Stack
 
-**Frontend**
-- React.js
-- Axios
-- Context API / Redux (optional)
-- Tailwind CSS or Chakra UI
+### **Frontend**
+- React.js (with Context API or Redux)
+- Axios for API calls
+- Tailwind CSS / Chakra UI
 
-**Backend**
+### **Backend**
 - Node.js + Express.js
-- MongoDB + Mongoose
+- MongoDB (Mongoose ODM)
 - Socket.IO (WebSocket Integration)
-- JWT (for auth)
-- bcrypt.js (password hashing)
-- CORS + Helmet for security
+- JWT & bcrypt.js for Auth
+- CORS, Helmet (Security)
+
+### **Infrastructure**
+- **Docker** & **Docker Compose**
+- **Kubernetes (K8s)** with **Helm Charts**
+- MongoDB Atlas or self-hosted
+- Hosted on **AWS (EKS, S3 , VPC)**
+- CI/CD via **GitHub Actions**
+- Auto-scaling via **Horizontal Pod Autoscaler (HPA)**
 
 ---
 
 ## 📁 Project Structure
+
 ```bash
-MERN-chat-app/
-├── backend/
-│   ├── config/         # DB & env config
-│   ├── controllers/    # Request handlers
-│   ├── models/         # Mongoose schemas
-│   ├── routes/         # API endpoints
-│   ├── middleware/     # Auth & error handlers
-│   └── server.js       # Entry point + socket setup
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/ # Chat UI components
-│   │   ├── context/    # State management
-│   │   ├── pages/      # App screens
-│   │   └── App.js
-│   └── package.json
+mern-chat-app/
+├── backend/              # Node.js + Express + MongoDB
+├── frontend/             # React app
+├── terraform/            # AWS infrastructure (EKS, VPC, RDS, etc.)
+└── k8/helm/              # Helm charts for K8s deployments
+    ├── backend/
+    ├── frontend/
+    ├── mongodb/
+    └── ingress/
 ```
+
 ---
 
 ## 🔌 API Endpoints
 
-| Method | Endpoint          | Description                |
-|--------|-------------------|----------------------------|
-| POST   | /api/user         | Register/Login             |
-| GET    | /api/user?search= | Search Users               |
-| POST   | /api/chat         | Create One-to-One Chat     |
-| GET    | /api/chat         | Fetch All Chats            |
-| POST   | /api/group        | Create Group Chat          |
-| PUT    | /api/group/rename | Rename Group               |
-| PUT    | /api/group/add    | Add User to Group          |
-| PUT    | /api/group/remove | Remove User from Group     |
-| POST   | /api/message      | Send Message               |
-| GET    | /api/message/:id  | Fetch Messages by Chat ID  |
+| Method | Endpoint           | Description                |
+|--------|--------------------|----------------------------|
+| POST   | `/api/user`        | Register/Login             |
+| GET    | `/api/user?search=`| Search Users               |
+| POST   | `/api/chat`        | Create One-to-One Chat     |
+| GET    | `/api/chat`        | Get All Chats              |
+| POST   | `/api/group`       | Create Group Chat          |
+| PUT    | `/api/group/rename`| Rename Group               |
+| PUT    | `/api/group/add`   | Add User to Group          |
+| PUT    | `/api/group/remove`| Remove User from Group     |
+| POST   | `/api/message`     | Send Message               |
+| GET    | `/api/message/:id` | Fetch Messages by Chat ID  |
 
-> ⚡ All messages are synced real-time using Socket.IO.
+> ⚡ Messages sync in real-time using **Socket.IO**
 
 ---
 
-## 🧪 Getting Started
+## 🧪 Getting Started (Local)
 
 ### Prerequisites
 
-- Node.js >= 16.x
-- MongoDB (Local or Atlas)
+- Node.js v16+
+- MongoDB (local or Atlas)
 - npm or yarn
 
 ### Backend Setup
@@ -87,31 +88,74 @@ MERN-chat-app/
 ```bash
 cd backend
 npm install
-# Set up .env with MONGO_URI and JWT_SECRET
 npm run server
 ```
-### env (backend)
-```bash
-PORT=5000
+
+**`.env` (backend):**
+```env
+PORT=5001
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_super_secret_key
-CLIENT_URL=http://localhost:3000
 ```
-### Frontend setup
+
+### Frontend Setup
+
 ```bash
 cd frontend
 npm install
 npm start
 ```
-### env (Frontend)
-```bash
-REACT_APP_API_URL=http://localhost:5000
+
+**`.env` (frontend):**
+```env
+REACT_APP_API_URL=http://localhost:3000
 ```
-### 🧑‍💻 Author
-- Salman Shaik
-📧 salmanshaikssk007@gmail.com
-🔗 LinkedIn
-🐙 GitHub
-### 🪪 License
--  This project is licensed under the MIT License.
-  
+
+---
+
+## ☸️ Kubernetes (Optional)
+
+> Used in cloud environments for production-scale deployments
+
+- All deployments are Helm-based
+- Secrets like `MONGO_URI` injected via Kubernetes Secrets
+- HPA handles pod auto-scaling based on CPU usage
+- Configured Ingress for routing frontend and backend traffic
+
+---
+
+## 🔁 CI/CD with GitHub Actions
+
+- Auto-deploys on `main` branch push
+- Uses Docker to build and push images
+- Applies updated manifests to EKS using `kubectl`
+- Supports rollback with Helm
+
+---
+
+## 📦 Docker (Local)
+
+```bash
+docker-compose up --build
+```
+
+---
+
+## 📤 Deployment
+
+- **Frontend & Backend** containerized and deployed to **EKS**
+- MongoDB hosted on **MongoDB Atlas** or on a **K8s pod**
+- Static files served via **Nginx** or directly in React app
+
+---
+
+## 🧑‍💻 Author
+
+**Salman Shaik**  
+📧 [salmanshaikssk007@gmail.com](mailto:salmanshaikssk007@gmail.com)  
+
+---
+
+## 🪪 License
+
+This project is licensed under the [MIT License](./LICENSE).

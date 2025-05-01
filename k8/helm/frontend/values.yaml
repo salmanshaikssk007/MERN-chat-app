@@ -1,0 +1,9 @@
+replicaCount: 2
+image:
+  repository: mern-chat-app-frontend # docker repo
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
