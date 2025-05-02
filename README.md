@@ -4,6 +4,22 @@ A scalable, real-time **chat application** built using the **MERN stack** (Mongo
 
 ---
 
+
+## 📸 Screenshots
+
+> Replace these image paths with your actual GitHub image URLs.
+
+**Chat UI Example**  
+![Login](./screenshots/login.png)
+
+**Chat UI I Example**  
+![chat UI](./screenshots/chat_ui.png)
+
+**Chat UI II Example**  
+![message UI](./screenshots/chat_ui_1.png)
+
+---
+
 ## 🚀 Features
 
 - 🔐 JWT Authentication (Login & Signup)
